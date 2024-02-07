@@ -7,6 +7,8 @@ Example usage of sersic2mge code that uses two separate sersic profiles of the s
 Returns: A file called mge_output.txt that contains the MGE of each component. 
 This file can now be used as input to JAM models.
 
+Written by Karina Voggel, last update 7. Feb 2024
+
 """
 # Solar magnitude and AB magnitude offset                         
 scale=0.05        # Scale of each pixel in "/pixel (here we have HST WFC3)
