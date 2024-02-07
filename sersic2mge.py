@@ -17,7 +17,8 @@ Returns:
 mge-- Array containing a MGE with the 4 columns:
 Luminosity [Lsun/pc^2],  sigma ["],  q,  P.A. [degree]
 This mge file can be then fed to JAM models
-
+---------------------------------------------------
+Written by Karina Voggel, last update 7. Feb 2024
 """
     
 # Helper function for computeSersicBn
