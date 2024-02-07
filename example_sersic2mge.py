@@ -36,7 +36,7 @@ sersic_params2 = {
 mge_result1 = sersic2mge(sersic_params, Msun, A_b=AB)
 mge_result2 = sersic2mge(sersic_params2, Msun, A_b=AB)
 
-mge_total = vstack(mge_result1, mge_result2)
+mge_total = np.vstack([mge_result1, mge_result2])
 # Save the result to a text file
 output_filename = "mge_output.txt"
 np.savetxt(output_filename, mge_total, fmt='%10.5f', header='Luminosity [Lsun/pc^2]  sigma ["]  q  P.A. [degree]', comments='')
