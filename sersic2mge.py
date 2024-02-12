@@ -2,6 +2,8 @@ import numpy as np
 from scipy.special import gamma, gamma, gammaincinv, gammainc
 from mgefit.mge_fit_1d import mge_fit_1d
 from scipy.optimize import newton, brentq
+from IPython import embed
+
 """
 Converting any Sersic profiles into a MGE (Multi-Gaussian expansion profile).
     
@@ -17,8 +19,7 @@ Returns:
 mge-- Array containing a MGE with the 4 columns:
 Luminosity [Lsun/pc^2],  sigma ["],  q,  P.A. [degree]
 This mge file can be then fed to JAM models
----------------------------------------------------
-Written by Karina Voggel, last update 7. Feb 2024
+
 """
     
 # Helper function for computeSersicBn
@@ -79,7 +80,7 @@ def fitmge2sersic(n_sersic, Re_sersic, q, NSTEP=None, fitbound=None, ngauss=None
 
     return mge.sol
     
-def mag2flux(mag, zero_pt=21.10, ABwave=None):
+def mag2flux(mag, zero_pt=None, ABwave=None):
     """
     Convert from magnitudes to flux (ergs/s/cm^2/A).
     
@@ -94,11 +95,11 @@ def mag2flux(mag, zero_pt=21.10, ABwave=None):
     if ABwave is not None:
         flux = 10**(-0.4 * (mag + 2.406 + 5 * np.log10(ABwave)))
     else:
-        flux = 10**(-0.4 * (mag + zero_pt))
+        flux = 10**(-0.4 * (mag - zero_pt))
     return flux
 
 
-def flux2mag(flux, zero_pt=21.10, ABwave=None):
+def flux2mag(flux, zero_pt=None, ABwave=None):
     """
     Convert from flux (ergs/s/cm^2/A) to magnitudes.
 
@@ -113,7 +114,7 @@ def flux2mag(flux, zero_pt=21.10, ABwave=None):
     if ABwave is not None:
         mag = -2.5 * np.log10(flux) - 5 * np.log10(ABwave) - 2.406
     else:
-        mag = -2.5 * np.log10(flux) - zero_pt
+        mag = -2.5 * np.log10(flux) + zero_pt
     return mag
 
 def sersic2mge(sersic, Msun, A_b=None, fitrange=None, frac=None):
@@ -151,7 +152,6 @@ def sersic2mge(sersic, Msun, A_b=None, fitrange=None, frac=None):
     mge_out[:, 1] = mge[1, :]  # sigma
     mge_out[:, 2] = sersic['q']
     mge_out[:, 3] = sersic['pa']
-
     return mge_out
 
 
